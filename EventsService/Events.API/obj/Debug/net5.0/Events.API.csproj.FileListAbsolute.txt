@@ -27,3 +27,10 @@ D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.AP
 D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\obj\Debug\net5.0\ref\Events.API.dll
 D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\obj\Debug\net5.0\Events.API.pdb
 D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\obj\Debug\net5.0\Events.API.genruntimeconfig.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\MongoDB.Bson.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.Service.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.Domain.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.Service.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.API\bin\Debug\net5.0\Events.DAO.pdb

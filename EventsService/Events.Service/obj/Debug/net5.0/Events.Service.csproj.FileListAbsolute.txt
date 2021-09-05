@@ -1,0 +1,17 @@
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.Service.deps.json
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.Service.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\ref\Events.Service.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.Service.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.DAO.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\bin\Debug\net5.0\Events.Domain.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.csproj.AssemblyReference.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.AssemblyInfoInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.AssemblyInfo.cs
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.csproj.CoreCompileInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.csproj.CopyComplete
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\ref\Events.Service.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Service\obj\Debug\net5.0\Events.Service.pdb

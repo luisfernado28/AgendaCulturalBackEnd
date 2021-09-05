@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Events.DAO\Events.DAO.csproj" />
+    <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

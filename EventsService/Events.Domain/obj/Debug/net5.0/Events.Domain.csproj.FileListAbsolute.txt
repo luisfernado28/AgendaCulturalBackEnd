@@ -1,0 +1,12 @@
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\bin\Debug\net5.0\Events.Domain.deps.json
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\bin\Debug\net5.0\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\bin\Debug\net5.0\ref\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\bin\Debug\net5.0\Events.Domain.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.csproj.AssemblyReference.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.AssemblyInfoInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.AssemblyInfo.cs
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.csproj.CoreCompileInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\ref\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.Domain\obj\Debug\net5.0\Events.Domain.pdb

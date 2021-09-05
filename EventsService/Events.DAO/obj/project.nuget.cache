@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "TKqW4+ZRnRo9yc00vKAo5WPl7lja7TOuvGLyvYFKCw7uQlu4/2BT6odT+RXf5Qf4N0+xRgh47DDAF2F8ZKXJ0w==",
+  "dgSpecHash": "BLj7Oleh9FsKlfNRpJ+jgx3Jrsq9Zmhf2/+1y19r3N5N9hWw8SOzK7AX2/b1VahTIrn+cQSc/YVB2l90/+4SlQ==",
   "success": true,
   "projectFilePath": "D:\\Luis Fer\\U\\2021\\Agenda Cultural\\AgendaCulturalBackEnd\\EventsService\\Events.DAO\\Events.DAO.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\luisfer\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\luisfer\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\luisfer\\.nuget\\packages\\mongodb.bson\\2.13.1\\mongodb.bson.2.13.1.nupkg.sha512",
+    "C:\\Users\\luisfer\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
+    "C:\\Users\\luisfer\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\luisfer\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

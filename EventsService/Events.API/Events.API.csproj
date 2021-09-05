@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
+    <ProjectReference Include="..\Events.Service\Events.Service.csproj" />
+  </ItemGroup>
+
 </Project>

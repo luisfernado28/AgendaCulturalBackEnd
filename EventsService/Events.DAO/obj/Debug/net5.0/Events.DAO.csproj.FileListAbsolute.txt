@@ -1,0 +1,15 @@
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\Events.DAO.deps.json
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\ref\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\Events.DAO.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\Events.Domain.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\bin\Debug\net5.0\Events.Domain.pdb
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.csproj.AssemblyReference.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.GeneratedMSBuildEditorConfig.editorconfig
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.AssemblyInfoInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.AssemblyInfo.cs
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.csproj.CoreCompileInputs.cache
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.csproj.CopyComplete
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\ref\Events.DAO.dll
+D:\Luis Fer\U\2021\Agenda Cultural\AgendaCulturalBackEnd\EventsService\Events.DAO\obj\Debug\net5.0\Events.DAO.pdb
