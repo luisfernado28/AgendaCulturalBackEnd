@@ -1,6 +1,7 @@
 ﻿using Events.Domain;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Events.DAO
 {
@@ -9,10 +10,11 @@ namespace Events.DAO
         public EventsDAO()
         {
         }
-        public List<Event> getEvents()
+        public async Task<List<Event>> getEvents()
         {
             List<Event> list = new List<Event>();
-            list.Add(new Event() { Id="a",Title="a wonderfull event"});
+            list.Add(new Event() { Id = "a",Title="a wonderfull event"});
+            list.Add(new Event() { Id = "F", Title = "an awful event" });
             return list;
         }
     }

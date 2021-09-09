@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace Events.Domain
 {
@@ -11,7 +12,7 @@ namespace Events.Domain
         public string Id { get; set; }
         public int Name { get; set; }
         public int Address{ get; set; }
-        public SocialMedia SocialMedia { get; set; }
+        public List<(string, string)>  SocialMedia { get; set; }
         
     }
 }

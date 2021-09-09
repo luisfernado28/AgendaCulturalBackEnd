@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Events.Domain;
+using Microsoft.Extensions.Options;
 
 namespace Events.API
 {
@@ -32,6 +34,12 @@ namespace Events.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Events.API", Version = "v1" });
             });
+            // requires using Microsoft.Extensions.Options
+            services.Configure<DatabaseSettings.AgendaCulturalDatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
+
+            services.AddSingleton<DatabaseSettings.IAgendaCulturalDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

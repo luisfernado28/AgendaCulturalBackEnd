@@ -2,6 +2,7 @@
 using Events.Domain;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Events.Service
 {
@@ -11,11 +12,11 @@ namespace Events.Service
 
         public EventsService()
         {
-            this.events = new EventsDAO();
         }
-        public List<Event> getEvents()
+        public async Task<List<Event>> getEvents()
         {
-            return events.getEvents();
+            var events = await DAOFacade.Instance.EventsDao.getEvents();
+            return events;
         }
     }
 }

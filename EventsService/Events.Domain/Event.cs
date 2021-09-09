@@ -16,7 +16,7 @@ namespace Events.Domain
         public string Phone{ get; set; }
         public string[] Images { get; set; }
         public string[] Dates{ get; set; }
-        public int Type{ get; set; }
+        public string Type{ get; set; }
         public List<(string,string)> SocialMedia { get; set; }
         public string[] VenueID { get; set; }
         public string[] TagID { get; set; }

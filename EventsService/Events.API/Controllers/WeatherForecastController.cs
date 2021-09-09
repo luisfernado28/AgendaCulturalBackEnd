@@ -29,7 +29,7 @@ namespace Events.API.Controllers
         }
 
         [HttpGet]
-        public List<Event> Get()
+        public Task<List<Event>> Get()
         {
             //var rng = new Random();
             //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
