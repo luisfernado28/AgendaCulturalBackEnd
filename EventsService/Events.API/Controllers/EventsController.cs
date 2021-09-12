@@ -12,17 +12,17 @@ namespace Events.API.Controllers
     [Route("v1.0/events")]
     public class EventsController : ControllerBase
     {
-
-        public EventsController()
+        public IEventsService _eventsService;
+        public EventsController(IEventsService eventsService)
         {
-
+            this._eventsService = eventsService;
         }
 
         // GET: EventsController
         [HttpGet]
         public async Task<IActionResult> GetEvents()
         {
-            var events = await ServicesFacade.Instance.Events.getEvents();
+            var events = await _eventsService.getEvents();
             return Ok(events);
         }
 

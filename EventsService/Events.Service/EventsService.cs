@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace Events.Service
 {
-    public class EventsService
+    public class EventsService : IEventsService
     {
-        private EventsDAO events { get; }
+        private IEventsDAO _eventsDao;
 
-        public EventsService()
+
+        public EventsService(IEventsDAO eventsDAO)
         {
+            _eventsDao = eventsDAO;
         }
         public async Task<List<Event>> getEvents()
         {
-            var events = await DAOFacade.Instance.EventsDao.getEvents();
+            var events = await _eventsDao.getEvents();
             return events;
         }
     }

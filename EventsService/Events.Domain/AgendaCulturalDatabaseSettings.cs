@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Events.Domain
 {
-    public class DatabaseSettings
-    {
         public class AgendaCulturalDatabaseSettings : IAgendaCulturalDatabaseSettings
         {
             public string EventsCollectionName { get; set; }
@@ -21,5 +19,5 @@ namespace Events.Domain
             string ConnectionString { get; set; }
             string DatabaseName { get; set; }
         }
-    }
+    
 }

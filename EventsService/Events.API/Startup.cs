@@ -1,18 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Events.Domain;
 using Microsoft.Extensions.Options;
+using Events.DAO;
+using Events.Service;
 
 namespace Events.API
 {
@@ -29,17 +24,18 @@ namespace Events.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+            // requires using Microsoft.Extensions.Options
+            services.Configure<AgendaCulturalDatabaseSettings>(Configuration.GetSection(nameof(AgendaCulturalDatabaseSettings)));
+            services.AddSingleton<IAgendaCulturalDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<AgendaCulturalDatabaseSettings>>().Value);
+
+            services.AddSingleton<IEventsService, EventsService>();
+            services.AddSingleton<IEventsDAO, EventsDAO>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Events.API", Version = "v1" });
             });
-            // requires using Microsoft.Extensions.Options
-            services.Configure<DatabaseSettings.AgendaCulturalDatabaseSettings>(
-                Configuration.GetSection(nameof(DatabaseSettings)));
-
-            services.AddSingleton<DatabaseSettings.IAgendaCulturalDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
