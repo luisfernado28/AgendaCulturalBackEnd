@@ -1,0 +1,31 @@
+
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+# use this to run on local env
+version: '3.4'
+services:
+  mongodb:
+    image : mongo:latest
+    networks:
+        - agendacultural_project   
+    container_name: mongodbagendacultural
+    volumes:
+        - mongodatabase:/data/db
+    ports:
+        - 27017:27017
+    restart: unless-stopped
+  eventsapi:
+    image: eventsapi
+    networks:
+        - agendacultural_project 
+    container_name: eventsapi
+    build:
+      context: .
+      dockerfile: src/Events.API/Dockerfile
+    ports:
+        - 5000:5000
+    depends_on:
+            - mongodb
+volumes:
+  mongodatabase:
+networks:
+    agendacultural_project:   
