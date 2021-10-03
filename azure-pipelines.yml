@@ -12,7 +12,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '1a21e108-7ce9-4f05-9780-4b233c5972cb'
   imageRepository: 'luisfernadoagendaculturaleventsbackend'
-  containerRegistry: 'eventsservice.azurecr.io'
+  containerRegistry: 'agendaculturalcontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/EventsService/Events.API/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -37,3 +37,4 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          
