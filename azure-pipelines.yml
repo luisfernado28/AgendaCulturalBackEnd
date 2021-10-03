@@ -27,6 +27,7 @@ stages:
     displayName: Build
     pool:
       vmImage: $(vmImageName)
+      demands: Limit -equals DisAbleParallel 
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
