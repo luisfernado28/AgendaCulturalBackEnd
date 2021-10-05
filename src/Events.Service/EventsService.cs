@@ -1,6 +1,5 @@
 ﻿using Events.DAO;
 using Events.Domain;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

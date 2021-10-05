@@ -14,7 +14,7 @@ services:
         - 27017:27017
     restart: unless-stopped
   eventsapi:
-    image: agendaculturalcontainerregistry.azurecr.io/eventsapi
+    image: eventsapi
     networks:
         - agendacultural_project 
     container_name: eventsapi
@@ -27,10 +27,6 @@ services:
             - mongodb
 volumes:
   mongodatabase:
-    driver: azure_file
-      driver_opts: 
-        share_name: eventsfiles
-        storage_account_name: storageagendacultural  
 networks:
     agendacultural_project: 
       
