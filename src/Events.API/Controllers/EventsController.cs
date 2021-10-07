@@ -1,4 +1,5 @@
 ﻿using Events.Service;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace Events.API.Controllers
 
         // GET: EventsController
         [HttpGet]
+        [EnableQuery]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _eventsService.getEvents();
