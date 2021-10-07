@@ -1,5 +1,5 @@
-﻿using Events.Service;
-using Microsoft.AspNet.OData;
+﻿using Events.Domain;
+using Events.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -17,7 +17,6 @@ namespace Events.API.Controllers
 
         // GET: EventsController
         [HttpGet]
-        [EnableQuery]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _eventsService.getEvents();
@@ -31,10 +30,12 @@ namespace Events.API.Controllers
         //}
 
         // GET: EventsController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] Event eventObj)
+        {
+            var Event = await _eventsService.postEvent(eventObj);
+            return Ok(Event);
+        }
 
         // POST: EventsController/Create
         //[HttpPost]
@@ -92,5 +93,5 @@ namespace Events.API.Controllers
         //        return View();
         //    }
         //}
-    }
+        }
 }

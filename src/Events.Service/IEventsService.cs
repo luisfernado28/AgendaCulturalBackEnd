@@ -7,5 +7,6 @@ namespace Events.Service
     public interface IEventsService
     {
         public Task<List<Event>> getEvents();
+        public Task<Event> postEvent(Event eventObj);
     }
 }

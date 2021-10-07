@@ -10,5 +10,6 @@ namespace Events.DAO
     public interface IEventsDAO
     {
         public Task<List<Event>> getEvents();
+        public Task<Event> postEvent(Event Event);
     }
 }

@@ -36,5 +36,18 @@ namespace Events.DAO
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<Event> postEvent(Event eventObj)
+        {
+            try
+            {
+                await _events.InsertOneAsync(eventObj);
+                return eventObj;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
