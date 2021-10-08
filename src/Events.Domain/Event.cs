@@ -13,6 +13,7 @@ namespace Events.Domain
         public string Title { get; set; }
         public string Artist { get; set; }
         public string VenueId { get; set; }
+        public int status { get; set; }
         public int Price { get; set; }
         public string Phone{ get; set; }
         public string Type { get; set; }
@@ -24,5 +25,11 @@ namespace Events.Domain
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string Instagram { get; set; }
+    }
+
+    public enum eventStatus
+    {
+        active  = 1,
+        inactive = 2,
     }
 }

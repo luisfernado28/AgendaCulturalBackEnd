@@ -2,6 +2,7 @@
 using Events.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Events.API.Controllers
@@ -80,19 +81,20 @@ namespace Events.API.Controllers
         //    return View();
         //}
 
-        // POST: EventsController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        //Delete: EventsController/Delete/5
+        [HttpDelete("{eventId}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Delete(string eventId)
+        {
+            try
+            {
+                await _eventsService.deleteEvent(eventId);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

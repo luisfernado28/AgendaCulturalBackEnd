@@ -18,17 +18,28 @@ namespace Events.DAO
             _events = database.GetCollection<Event>(settings.EventsCollectionName);
         }
 
+        public async Task deleteEvent(string eventId)
+        {
+            try
+            {
+                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                if (existingEvent == null)
+                    throw new KeyNotFoundException();
+                DeleteResult deleteResult = await _events.DeleteOneAsync(evnt => evnt.Id == eventId);
+                EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<List<Event>> getEvents()
         {
-            //List<Event> list = new List<Event>();
-            //list.Add(new Event() { Id = "a", Title = "a wonderfull event" });
-            //list.Add(new Event() { Id = "F", Title = "an awful event" });
-            //return _events.Find(book => true).ToList(); 
-            //List<Product> prods = new List<Product>();
             try
             {
                 var filter = FilterDefinition<Event>.Empty;
-                var list = _events.FindAsync(filter).Result.ToList();
+                var list =  _events.FindAsync(filter).Result.ToList();
                 return list;
             }
                 catch (Exception e)
@@ -55,8 +66,7 @@ namespace Events.DAO
             try
             {
                 var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
-                if(existingEvent== null)
-                    throw new KeyNotFoundException();
+                EventHandler(existingEvent != null);
                 eventObj.Id = eventId;
                 await _events.ReplaceOneAsync(evnt => evnt.Id == eventId, eventObj);
                 return eventObj;
@@ -65,6 +75,10 @@ namespace Events.DAO
             {
                 throw new Exception(e.Message);
             }
+        }
+        public void EventHandler(bool flag)
+        {
+            if (!flag) { throw new KeyNotFoundException(); }
         }
     }
 }

@@ -14,6 +14,12 @@ namespace Events.Service
         {
             _eventsDao = eventsDAO;
         }
+
+        public async Task deleteEvent(string eventId)
+        {
+            await _eventsDao.deleteEvent(eventId);
+        }
+
         public async Task<List<Event>> getEvents()
         {
             var events = await _eventsDao.getEvents();
