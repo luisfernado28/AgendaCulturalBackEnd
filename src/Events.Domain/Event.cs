@@ -1,7 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Events.Domain
 {
@@ -13,7 +15,10 @@ namespace Events.Domain
         public string Title { get; set; }
         public string Artist { get; set; }
         public string VenueId { get; set; }
-        public int status { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        [BsonRepresentation(BsonType.String)]
+        public eventStatus status { get; set; }
         public int Price { get; set; }
         public string Phone{ get; set; }
         public string Type { get; set; }

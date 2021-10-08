@@ -52,6 +52,7 @@ namespace Events.DAO
         {
             try
             {
+                eventObj.status = eventStatus.active;
                 await _events.InsertOneAsync(eventObj);
                 return eventObj;
             }
