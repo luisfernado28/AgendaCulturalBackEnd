@@ -49,5 +49,22 @@ namespace Events.DAO
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<Event> updateEvent(string eventId, Event eventObj)
+        {
+            try
+            {
+                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                if(existingEvent== null)
+                    throw new KeyNotFoundException();
+                eventObj.Id = eventId;
+                await _events.ReplaceOneAsync(evnt => evnt.Id == eventId, eventObj);
+                return eventObj;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

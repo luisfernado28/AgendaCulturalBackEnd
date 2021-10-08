@@ -25,5 +25,11 @@ namespace Events.Service
             var Event = await _eventsDao.postEvent(eventObj);
             return Event;
         }
+
+        public async Task<Event> updateEvent(string eventId, Event eventObj)
+        {
+            var updatedEvent = await _eventsDao.updateEvent(eventId, eventObj);
+            return updatedEvent;
+        }
     }
 }

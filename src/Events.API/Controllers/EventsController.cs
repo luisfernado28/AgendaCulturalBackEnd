@@ -1,6 +1,7 @@
 ﻿using Events.Domain;
 using Events.Service;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Events.API.Controllers
@@ -58,20 +59,20 @@ namespace Events.API.Controllers
         //    return View();
         //}
 
-        // POST: EventsController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        //POST: EventsController/Edit/5
+        [HttpPut("{eventId}")]
+        public async Task<ActionResult> EditAsync(string eventId, [FromBody] Event eventObj)
+        {
+            try
+            {
+                await _eventsService.updateEvent(eventId, eventObj);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
         // GET: EventsController/Delete/5
         //public ActionResult Delete(int id)
@@ -93,5 +94,5 @@ namespace Events.API.Controllers
         //        return View();
         //    }
         //}
-        }
+    }
 }

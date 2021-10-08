@@ -8,5 +8,6 @@ namespace Events.Service
     {
         public Task<List<Event>> getEvents();
         public Task<Event> postEvent(Event eventObj);
+        public Task<Event> updateEvent(string eventId,Event eventObj);
     }
 }
