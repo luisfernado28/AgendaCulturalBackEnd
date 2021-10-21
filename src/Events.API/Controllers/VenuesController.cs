@@ -32,8 +32,8 @@ namespace Events.API.Controllers
         //    return View();
         //}
 
-        //POST: VenuesController/Edit/5
-        [HttpPut("{venueId}")]
+        //Get: VenuesController/Edit/5
+        [HttpGet("{venueId}")]
         public async Task<ActionResult> EditAsync(string venueId)
         {
             try
