@@ -50,7 +50,9 @@ namespace Events.API
             services.AddSingleton<IAgendaCulturalDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<AgendaCulturalDatabaseSettings>>().Value);
 
             services.AddSingleton<IEventsService, EventsService>();
+            services.AddSingleton<IVenuesService, VenuesService>();
             services.AddSingleton<IEventsDAO, EventsDAO>();
+            services.AddSingleton<IVenuesDao, VenuesDAO>();
 
             services.AddControllers().AddNewtonsoftJson();
             
