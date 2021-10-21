@@ -32,11 +32,20 @@ namespace Events.API.Controllers
         //    return View();
         //}
 
-        // GET: VenueController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        //POST: VenuesController/Edit/5
+        [HttpPut("{venueId}")]
+        public async Task<ActionResult> EditAsync(string venueId)
+        {
+            try
+            {
+                var venue = await _venuesService.getVenueById(venueId);
+                return Ok(venue);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
         // GET: VenueController/Create
         //public ActionResult Create()

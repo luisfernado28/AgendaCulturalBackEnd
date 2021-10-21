@@ -39,9 +39,18 @@ namespace Events.DAO
             }
         }
 
-        public Task<Venue> getVenuesById()
+        public async Task<Venue> getVenuesById(string venueId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var venue = await _venueDAO.Find(venue => venue.Id == venueId).FirstOrDefaultAsync();
+                EventHandler(venue != null);
+                return venue;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public Task<Venue> postVenue(Venue venue)
@@ -52,6 +61,11 @@ namespace Events.DAO
         public Task<Venue> updateVenue(string eventId, Venue venue)
         {
             throw new NotImplementedException();
+        }
+
+        public void EventHandler(bool flag)
+        {
+            if (!flag) { throw new KeyNotFoundException(); }
         }
     }
 }

@@ -20,9 +20,10 @@ namespace Events.Service
             throw new NotImplementedException();
         }
 
-        public Task<Venue> getVenueById(string venueId)
+        public async Task<Venue> getVenueById(string venueId)
         {
-            throw new NotImplementedException();
+            var venue = await _venuesDAO.getVenuesById(venueId);
+            return venue;
         }
 
         public async Task<List<Venue>> getVenues()
