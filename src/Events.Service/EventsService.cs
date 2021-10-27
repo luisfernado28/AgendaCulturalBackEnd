@@ -28,6 +28,7 @@ namespace Events.Service
 
         public async Task<Event> postEvent(Event eventObj)
         {
+            Logger.Info($"EventsService - Trying to create event with the name {eventObj.Title}.");
             var Event = await _eventsDao.postEvent(eventObj);
             return Event;
         }
