@@ -6,9 +6,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest' # set to windows-latest or another Windows vmImage for Windows builds
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'EventsService'
-    repository: 'EventsContainer'
-    command: 'buildAndPush'
-    Dockerfile: '**/src/Events.API/Dockerfile'
+steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: 'EventsService'
+      repository: 'EventsContainer'
+      command: 'buildAndPush'
+      Dockerfile: '**/src/Events.API/Dockerfile'
