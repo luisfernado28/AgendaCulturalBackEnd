@@ -26,6 +26,11 @@ namespace Events.Service
             return events;
         }
 
+        public Task<Event> patchEvent(string eventId, Event eventObj)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Event> postEvent(Event eventObj)
         {
             Logger.Info($"EventsService - Trying to create event with the name {eventObj.Title}.");

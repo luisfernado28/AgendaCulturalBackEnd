@@ -60,7 +60,7 @@ namespace Events.API.Controllers
         //    return View();
         //}
 
-        //POST: EventsController/Edit/5
+        //PUT: EventsController/eventId
         [HttpPut("{eventId}")]
         public async Task<ActionResult> EditAsync(string eventId, [FromBody] Event eventObj)
         {
@@ -69,19 +69,27 @@ namespace Events.API.Controllers
                 await _eventsService.updateEvent(eventId, eventObj);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
         }
 
-        // GET: EventsController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        //Patch: EventsController/eventId
+        [HttpPatch("{eventId}")]
+        public async Task<ActionResult> PatchAsync(string eventId, [FromBody] Event eventObj)
+        {
+            try
+            {
+                await _eventsService.updateEvent(eventId, eventObj);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
-        //Delete: EventsController/Delete/5
         [HttpDelete("{eventId}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> Delete(string eventId)

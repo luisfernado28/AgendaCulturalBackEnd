@@ -77,9 +77,51 @@ namespace Events.DAO
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<Event> patchEvent(string eventId, Event Event)
+        {
+            try
+            {
+                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                EventHandler(existingEvent != null);
+                var patchedEvent=patchEvent(Event, existingEvent);
+                await _events.ReplaceOneAsync(evnt => evnt.Id == eventId, patchedEvent);
+                return patchedEvent;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
         public void EventHandler(bool flag)
         {
             if (!flag) { throw new KeyNotFoundException(); }
         }
+
+        public Event patchEvent(Event patchedEvent, Event actualEvent)
+        {
+            return new Event
+            {
+                Id = patchedEvent.Id,
+                Title = patchedEvent.Title ?? actualEvent.Title,
+                Artist = patchedEvent.Artist ?? actualEvent.Artist,
+                VenueId = patchedEvent.VenueId ?? actualEvent.VenueId,
+                status = patchedEvent.status,
+                Price = patchedEvent.Price ,
+                Phone = patchedEvent.Phone ?? actualEvent.Phone,
+                Type = patchedEvent.Type ?? actualEvent.Type,
+                Description = patchedEvent.Description ?? actualEvent.Description,
+                ImageUrl = patchedEvent.ImageUrl ?? actualEvent.ImageUrl,
+                Dates = patchedEvent.Dates ?? actualEvent.Dates,
+                Tags = patchedEvent.Tags ?? actualEvent.Tags,
+                Website = patchedEvent.Website ?? actualEvent.Website,
+                Facebook = patchedEvent.Facebook ?? actualEvent.Facebook,
+                Twitter = patchedEvent.Twitter ?? actualEvent.Twitter,
+                Instagram = patchedEvent.Instagram ?? actualEvent.Instagram,
+            };
+        }
+
     }
 }

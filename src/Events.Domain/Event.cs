@@ -24,9 +24,8 @@ namespace Events.Domain
         public string Type { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        [BsonDateTimeOptions]
-        public List<DateTime> Dates{ get; set; }
-        public List<string> TagsId { get; set; }
+        public Dates Dates{ get; set; }
+        public List<string> Tags { get; set; }
         public string Website { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
