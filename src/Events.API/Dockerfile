@@ -7,10 +7,10 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/Events.API/Events.API.csproj", "Events.API/"]
+COPY ["Events.API/Events.API.csproj", "Events.API/"]
 RUN dotnet restore "Events.API\Events.API.csproj"
 COPY . .
-WORKDIR "/src/src/Events.API"
+WORKDIR "/src/Events.API"
 RUN dotnet build "Events.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
