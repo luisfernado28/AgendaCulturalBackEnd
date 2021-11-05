@@ -3,13 +3,20 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 
+variables:
+  imageName: 'pipelines-javascript-docker'
 
 steps:
-
-    
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: '$(imageName)'
+    command: 'build'
+    Dockerfile: '*/src/Dockerfile'
