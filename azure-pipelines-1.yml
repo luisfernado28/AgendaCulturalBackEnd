@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: 'cf3993a2-26c7-41b3-badd-84dfac96a821'
   imageRepository: 'eventsapi'
   containerRegistry: 'agendaculturalcontainerregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/src/Events.API/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
