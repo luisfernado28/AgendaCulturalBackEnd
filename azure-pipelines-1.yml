@@ -37,3 +37,11 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure para estudiantes(7c65310a-3b63-4f4c-a92f-d5217dc60381)'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'ssh azureuser@40.71.89.253'
+ 
