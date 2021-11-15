@@ -12,10 +12,6 @@ using Microsoft.AspNet.OData.Extensions;
 using System.Linq;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using System;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.Swagger;
-using System.Web.Http.Description;
 
 namespace Events.API
 {

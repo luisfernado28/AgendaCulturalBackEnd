@@ -13,5 +13,6 @@ namespace Events.Domain
         [BsonDateTimeOptions]
 
         public List<DateTime> dates { get; set; }
+        public DateTime time{ get; set; }
     }
 }
