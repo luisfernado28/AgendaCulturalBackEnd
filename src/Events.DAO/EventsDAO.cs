@@ -123,5 +123,18 @@ namespace Events.DAO
             };
         }
 
+        public async Task<Event> getEventsById(string eventId)
+        {
+            try
+            {
+                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                EventHandler(existingEvent != null);
+                return existingEvent;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

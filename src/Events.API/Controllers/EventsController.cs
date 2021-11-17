@@ -25,40 +25,26 @@ namespace Events.API.Controllers
             return Ok(events);
         }
 
-        // GET: EventsController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        [HttpGet("{eventId}")]
+        public async Task<ActionResult> GetEventById(string eventId)
+        {
+            try
+            {
+                var x=await _eventsService.getEventById(eventId);
+                return Ok(x);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
-        // GET: EventsController/Create
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Event eventObj)
         {
             var Event = await _eventsService.postEvent(eventObj);
             return Ok(Event);
         }
-
-        // POST: EventsController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: EventsController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
 
         //PUT: EventsController/eventId
         [HttpPut("{eventId}")]
