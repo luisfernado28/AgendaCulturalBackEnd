@@ -32,9 +32,11 @@ namespace Events.Service
             return events;
         }
 
-        public Task<Venue> postVenues(Venue venueObj)
+        public async Task<Venue> postVenue(Venue venueObj)
         {
-            throw new NotImplementedException();
+            Logger.Info($"EventsService - Trying to create venue with the name {venueObj.Name}");
+            var venue = await _venuesDAO.postVenue(venueObj);
+            return venue;
         }
 
         public Task<Venue> updateVenue(string venueId, Venue venueObj)

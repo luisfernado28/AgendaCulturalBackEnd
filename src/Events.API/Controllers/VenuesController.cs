@@ -1,4 +1,5 @@
-﻿using Events.Service;
+﻿using Events.Domain;
+using Events.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,12 +27,6 @@ namespace Events.API.Controllers
             return Ok(venues);
         }
 
-        // GET: VenueController
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         //Get: VenuesController/Edit/5
         [HttpGet("{venueId}")]
         public async Task<ActionResult> EditAsync(string venueId)
@@ -47,67 +42,11 @@ namespace Events.API.Controllers
             }
         }
 
-        // GET: VenueController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        // POST: VenueController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: VenueController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        // POST: VenueController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: VenueController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        // POST: VenueController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] Venue venue)
+        {
+            var Event = await _venuesService.postVenue(venue);
+            return Ok(Event);
+        }
     }
 }

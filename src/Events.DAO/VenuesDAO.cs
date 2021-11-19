@@ -53,9 +53,17 @@ namespace Events.DAO
             }
         }
 
-        public Task<Venue> postVenue(Venue venue)
+        public async Task<Venue> postVenue(Venue venue)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _venueDAO.InsertOneAsync(venue);
+                return venue;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public Task<Venue> updateVenue(string eventId, Venue venue)
