@@ -16,6 +16,8 @@ namespace Events.Domain
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public string Instagram { get; set; }
+        public string Description { get; set; }
+        public Location Location { get; set; }
 
     }
 }
