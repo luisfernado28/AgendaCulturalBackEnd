@@ -1,5 +1,6 @@
 ﻿using Events.Domain;
 using Events.Service;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -19,6 +20,7 @@ namespace Events.API.Controllers
 
         // GET: EventsController
         [HttpGet]
+        [EnableQuery]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _eventsService.getEvents();
