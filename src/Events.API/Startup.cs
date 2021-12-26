@@ -80,7 +80,7 @@ namespace Events.API
             {
                 endpoints.MapControllers();
                 endpoints.EnableDependencyInjection();
-                endpoints.Select().Filter().Expand();
+                endpoints.Select().Filter().Expand().OrderBy().MapSwagger().Count().MaxTop(null);
             });
 
             app.UseSwagger();
