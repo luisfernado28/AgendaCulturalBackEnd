@@ -47,8 +47,10 @@ namespace Events.API
 
             services.AddSingleton<IEventsService, EventsService>();
             services.AddSingleton<IVenuesService, VenuesService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IEventsDAO, EventsDAO>();
             services.AddSingleton<IVenuesDao, VenuesDAO>();
+            services.AddSingleton<IAuthenticationDAO, AuthenticationDAO>();
 
             services.AddControllers().AddNewtonsoftJson();
             
