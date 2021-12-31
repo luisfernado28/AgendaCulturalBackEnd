@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Events.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Events.Service
 {
     public interface IAuthenticationService
     {
+        public Task<User> postUser(User userObj);
+
     }
 }

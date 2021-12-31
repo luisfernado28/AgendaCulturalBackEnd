@@ -1,9 +1,6 @@
 ﻿using Events.Domain;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Events.DAO
@@ -17,7 +14,20 @@ namespace Events.DAO
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _users = database.GetCollection<User>(settings.EventsCollectionName);
+            _users = database.GetCollection<User>(settings.UsersCollectionName);
+        }
+
+        public async Task<User> postUser(User user)
+        {
+            try
+            {
+                await _users.InsertOneAsync(user);
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Events.Service;
+﻿using Events.Domain;
+using Events.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ namespace Events.API.Controllers
         public AuthenticationController(IAuthenticationService authService)
         {
             this._authService = authService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] User userObj)
+        {
+            var User = await _authService.postUser(userObj);
+            return Ok(User);
         }
     }
 }
