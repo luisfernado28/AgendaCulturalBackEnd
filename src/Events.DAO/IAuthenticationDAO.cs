@@ -1,8 +1,5 @@
 ﻿using Events.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Events.DAO
@@ -10,5 +7,7 @@ namespace Events.DAO
     public interface IAuthenticationDAO
     {
         public Task<User> postUser(User user);
+        public Task<List<User>> getUsers();
+        public Task<User> getUserById(string userId);
     }
 }
