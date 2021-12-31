@@ -8,7 +8,8 @@ namespace Events.Service
     {
         public Task<User> postUser(User userObj);
         public Task<List<User>> getUsers();
-        public Task<User> getEventById(string userId);
-
+        public Task<User> getUserById(string userId);
+        public Task<User> patchUser(string userId, User userObj);
+        public Task deleteUser(string userId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Events.DAO;
 using Events.Domain;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
@@ -17,7 +18,12 @@ namespace Events.Service
 
         }
 
-        public async Task<User> getEventById(string userId)
+        public async Task deleteUser(string userId)
+        {
+            await _authDao.deleteUser(userId);
+        }
+
+        public async Task<User> getUserById(string userId)
         {
             return await _authDao.getUserById(userId);
         }
@@ -26,6 +32,20 @@ namespace Events.Service
         {
             var users= await _authDao.getUsers();
             return users;
+        }
+
+        public async Task<User> patchUser(string userId, User userObj)
+        {
+            try
+            {
+                var updated = await _authDao.patchUser(userId, userObj);
+                var account = await _authDao.getUserById(userId);
+                return account;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<User> postUser(User userObj)
