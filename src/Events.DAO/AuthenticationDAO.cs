@@ -36,9 +36,9 @@ namespace Events.DAO
         {
             try
             {
-                var existingEvent = await _users.Find(eventFind => eventFind.Id == userId).FirstOrDefaultAsync();
-                EventHandler(existingEvent != null);
-                return existingEvent;
+                var existinguser = await _users.Find(userFind => userFind.Id == userId).FirstOrDefaultAsync();
+                EventHandler(existinguser != null);
+                return existinguser;
             }
             catch (Exception e)
             {
@@ -62,10 +62,10 @@ namespace Events.DAO
         {
             try
             {
-                var existingEvent = await _users.Find(eventFind => eventFind.Id == userId).FirstOrDefaultAsync();
-                EventHandler(existingEvent != null);
+                var existinguser = await _users.Find(userFind => userFind.Id == userId).FirstOrDefaultAsync();
+                EventHandler(existinguser != null);
                 user.Id = userId;
-                var patchedUser = userPatcher(user, existingEvent);
+                var patchedUser = userPatcher(user, existinguser);
                 await _users.ReplaceOneAsync(evnt => evnt.Id == userId, patchedUser);
                 return user;
             }
@@ -79,8 +79,8 @@ namespace Events.DAO
         {
             try
             {
-                var existingEvent = await _users.Find(eventFind => eventFind.Id == userId).FirstOrDefaultAsync();
-                if (existingEvent == null)
+                var existinguser = await _users.Find(userFind => userFind.Id == userId).FirstOrDefaultAsync();
+                if (existinguser == null)
                     throw new KeyNotFoundException();
                 DeleteResult deleteResult = await _users.DeleteOneAsync(evnt => evnt.Id == userId);
                 EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
@@ -107,6 +107,20 @@ namespace Events.DAO
                 Password = storedUser.Password,
                 Admin = updatedUser.Admin,
             };
+        }
+
+        public User getUsersByUserName(string userName)
+        {
+            try
+            {
+                var existingUser = _users.Find(userFind => userFind.Username == userName).FirstOrDefaultAsync();
+                //EventHandler(existingEvent != null);
+                return existingUser.Result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

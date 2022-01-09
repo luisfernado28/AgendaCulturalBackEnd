@@ -11,5 +11,7 @@ namespace Events.Service
         public Task<User> getUserById(string userId);
         public Task<User> patchUser(string userId, User userObj);
         public Task deleteUser(string userId);
+        public UserCredentailResponse Authenticate(UserCredential userCred);
+
     }
 }

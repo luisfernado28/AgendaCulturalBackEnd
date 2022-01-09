@@ -1,7 +1,11 @@
 ﻿using Events.DAO;
 using Events.Domain;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
@@ -11,11 +15,25 @@ namespace Events.Service
     public class AuthenticationService : IAuthenticationService
     {
         private IAuthenticationDAO  _authDao;
-
-        public AuthenticationService(IAuthenticationDAO authDAO)
+        private IAppSettings _appSettings;
+        public AuthenticationService(IAppSettings appSettings,IAuthenticationDAO authDAO)
         {
             _authDao = authDAO;
+            _appSettings = appSettings;
+        }
 
+        public UserCredentailResponse Authenticate(UserCredential userCred)
+        {
+            User account = _authDao.getUsersByUserName(userCred.Username);
+            if (account == null)
+            {
+                throw new Exception("Authentication Error");
+            }
+            if (!BC.Verify(userCred.Password, account.Password))
+            {
+                throw new UnauthorizedAccessException();
+            }
+            return fillUserCredentialsResponse(account);
         }
 
         public async Task deleteUser(string userId)
@@ -55,6 +73,49 @@ namespace Events.Service
 
             var User = await _authDao.postUser(userObj);
             return User;
+        }
+
+
+        UserCredentailResponse fillUserCredentialsResponse(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenKey = Encoding.ASCII.GetBytes(_appSettings.JwtTokenKey);
+
+            const string Id = "id";
+            const string Username = "Username";
+            const string Firstname = "Firstname";
+            const string Lastname = "Lastname";
+            const string Admin = "Admin";
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                        new Claim(Username, user.Username),
+                        new Claim(Id, user.Id.ToString()),
+                        new Claim(Firstname, user.Firstname),
+                        new Claim(Admin, user.Admin.ToString()),
+                        new Claim(Lastname, user.Lastname),
+                    }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials =
+                new SigningCredentials(
+                    new SymmetricSecurityKey(tokenKey),
+                    SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _appSettings.Issuer,
+                Audience = _appSettings.Audience
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            //DaoFacade.Instance.AuthDao.LogSignIn(userInformation.UserId, tokenHandler.WriteToken(token));
+            //Log Sign In
+            return new UserCredentailResponse
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                Admin = user.Admin,
+                Token = tokenHandler.WriteToken(token)
+            };
         }
     }
 }

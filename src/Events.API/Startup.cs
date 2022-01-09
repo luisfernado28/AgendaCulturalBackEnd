@@ -43,7 +43,9 @@ namespace Events.API
 
             // requires using Microsoft.Extensions.Options
             services.Configure<AgendaCulturalDatabaseSettings>(Configuration.GetSection(nameof(AgendaCulturalDatabaseSettings)));
+            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
             services.AddSingleton<IAgendaCulturalDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<AgendaCulturalDatabaseSettings>>().Value);
+            services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<IOptions<AppSettings>>().Value);
 
             services.AddSingleton<IEventsService, EventsService>();
             services.AddSingleton<IVenuesService, VenuesService>();

@@ -75,5 +75,11 @@ namespace Events.API.Controllers
                 throw new Exception(e.Message);
             }
         }
+
+        [HttpPost("token")]
+        public IActionResult Auth([FromBody] UserCredential userCredentials)
+        {
+            return Ok(_authService.Authenticate(userCredentials));
+        }
     }
 }
