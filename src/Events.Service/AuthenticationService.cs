@@ -33,6 +33,7 @@ namespace Events.Service
             {
                 throw new UnauthorizedAccessException();
             }
+
             return fillUserCredentialsResponse(account);
         }
 
@@ -52,6 +53,11 @@ namespace Events.Service
             return users;
         }
 
+        public void Logoff(UserCredentailResponse userCred)
+        {
+            Logger.Info($"Authservice - User log off at {System.DateTime.Now} by user {userCred.Firstname}  {userCred.Lastname} with username {userCred.Username}");
+        }
+
         public async Task<User> patchUser(string userId, User userObj)
         {
             try
@@ -68,7 +74,7 @@ namespace Events.Service
 
         public async Task<User> postUser(User userObj)
         {
-            Logger.Info($"EventsService - Trying to create user with the name of {userObj.Username}.");
+            Logger.Info($"Authservice - Trying to create user with the name of {userObj.Username}.");
             userObj.Password = BC.HashPassword(userObj.Password);
 
             var User = await _authDao.postUser(userObj);
@@ -105,8 +111,7 @@ namespace Events.Service
                 Audience = _appSettings.Audience
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            //DaoFacade.Instance.AuthDao.LogSignIn(userInformation.UserId, tokenHandler.WriteToken(token));
-            //Log Sign In
+            Logger.Info($"Authservice - User log in at {System.DateTime.Now} by user {user.Firstname}  {user.Lastname} with username {user.Username}");
             return new UserCredentailResponse
             {
                 Id = user.Id,

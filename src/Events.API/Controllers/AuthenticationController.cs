@@ -81,5 +81,12 @@ namespace Events.API.Controllers
         {
             return Ok(_authService.Authenticate(userCredentials));
         }
+
+        [HttpPost("logoff")]
+        public IActionResult Logoff([FromBody] UserCredentailResponse userCredentials)
+        {
+            _authService.Logoff(userCredentials);
+            return Ok();
+        }
     }
 }
