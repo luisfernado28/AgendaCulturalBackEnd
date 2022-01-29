@@ -136,5 +136,6 @@ namespace Events.DAO
                 throw new Exception(e.Message);
             }
         }
+
     }
 }

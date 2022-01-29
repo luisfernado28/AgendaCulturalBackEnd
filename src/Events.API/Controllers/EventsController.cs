@@ -27,6 +27,14 @@ namespace Events.API.Controllers
             return Ok(events);
         }
 
+        [HttpGet("fullEvent")]
+        [EnableQuery]
+        public async Task<IActionResult> GetFullEvent()
+        {
+            var events = await _eventsService.getFullEvents();
+            return Ok(events);
+        }
+
         [HttpGet("{eventId}")]
         public async Task<ActionResult> GetEventById(string eventId)
         {
