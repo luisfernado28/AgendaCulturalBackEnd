@@ -57,7 +57,6 @@ namespace Events.Service
                 }
                 
             }
-            //return new List<FullEvent> { new FullEvent() } ;
             return fullEvents;
         }
 
