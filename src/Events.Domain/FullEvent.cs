@@ -17,16 +17,16 @@ namespace Events.Domain
         public string Artist { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         [BsonRepresentation(BsonType.String)]
-        public eventStatus status { get; set; }
+        public eventStatus Status { get; set; }
         public int Price { get; set; }
         public string Phone { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public bool areindependent { get; set; }
+        public bool AreIndependent { get; set; }
         [BsonDateTimeOptions]
-        public List<DateTime> dates { get; set; }
-        public DateTime time { get; set; }
+        public List<DateTime> Dates { get; set; }
+        public DateTime Time { get; set; }
         public List<string> Tags { get; set; }
         public string Website { get; set; }
         public string Facebook { get; set; }

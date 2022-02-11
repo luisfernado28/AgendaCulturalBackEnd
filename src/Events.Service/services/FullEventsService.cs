@@ -6,76 +6,25 @@ using System.Threading.Tasks;
 
 namespace Events.Service
 {
-    public class EventsService : IEventsService
+    public class FullEventsService : IFullEventsService
     {
-        private IEventsDAO _eventsDao;
-        private IVenuesDao _venuesDAO;
+        private IFullEventsDAO _fullEventsDao;
+        
 
-
-        public EventsService(IEventsDAO eventsDAO, IVenuesDao venuesDAO)
+        public FullEventsService(IFullEventsDAO fullEventsDAO)
         {
-            _eventsDao = eventsDAO;
-            _venuesDAO = venuesDAO;
-
+            _fullEventsDao = fullEventsDAO;
         }
 
-        public async Task deleteEvent(string eventId)
-        {
-            await _eventsDao.deleteEvent(eventId);
-        }
-
-        public async Task<Event> getEventById(string eventId)
-        {
-           return await _eventsDao.getEventsById(eventId);
-        }
-
-        public async Task<List<Event>> getEvents()
-        {
-            var events = await _eventsDao.getEvents();
-            return events;
-        }
-
-        public async Task<List<FullEvent>> getFullEvents()
-        {
-            var events = await _eventsDao.getEvents();
-            var venuesIds = events.Select(eve=> eve.VenueId).Distinct().ToList();
-            List<FullEvent> fullEvents = new List<FullEvent>();
-            foreach(string id  in venuesIds)
-            {
-                if(id.Equals("No Venue"))
-                {
-                    var eventsOfVenue = from eventObj in events where eventObj.VenueId == id select eventObj;
-                    eventsOfVenue = eventsOfVenue.ToList();
-                    fullEvents = buildNoVenueFullEvent(fullEvents, (List<Event>)eventsOfVenue);
-                }
-                else
-                {
-                    var venue = await _venuesDAO.getVenuesById(id);
-                    var eventsOfVenue = from eventObj in events where eventObj.VenueId == id select eventObj;
-                    eventsOfVenue = eventsOfVenue.ToList();
-                    fullEvents = buildFullEvents(fullEvents, (List<Event>)eventsOfVenue, venue);
-                }
-                
-            }
-            return fullEvents;
-        }
-
-        public Task<Event> patchEvent(string eventId, Event eventObj)
+        public Task<FullEvent> getFullEventById(string fullEventId)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<Event> postEvent(Event eventObj)
+        public async Task<List<FullEvent>> getFullEvents()
         {
-            Logger.Info($"EventsService - Trying to create event with the name {eventObj.Title}.");
-            var Event = await _eventsDao.postEvent(eventObj);
-            return Event;
-        }
-
-        public async Task<Event> updateEvent(string eventId, Event eventObj)
-        {
-            var updatedEvent = await _eventsDao.updateEvent(eventId, eventObj);
-            return updatedEvent;
+            var fullEvents = await _fullEventsDao.getFullEvents();
+            return fullEvents;
         }
 
         private List<FullEvent> buildFullEvents(List<FullEvent> listOfCurrentFullEvents, List<Event>  events, Venue venue)
@@ -87,15 +36,15 @@ namespace Events.Service
                     Id = ev.Id,
                     Title = ev.Title,
                     Artist = ev.Artist,
-                    status= ev.status,
+                    Status= ev.status,
                     Price= ev.Price,
                     Phone= ev.Phone,
                     Type= ev.Type,
                     Description= ev.Description,
                     ImageUrl= ev.ImageUrl,
-                    areindependent= ev.Dates.areindependent,
-                    dates= ev.Dates.dates,
-                    time= ev.Dates.time,
+                    AreIndependent = ev.Dates.areindependent,
+                    Dates= ev.Dates.dates,
+                    Time= ev.Dates.time,
                     Tags= ev.Tags,
                     Facebook = ev.Facebook,
                     Twitter = ev.Twitter,
@@ -125,15 +74,15 @@ namespace Events.Service
                     Id = ev.Id,
                     Title = ev.Title,
                     Artist = ev.Artist,
-                    status = ev.status,
+                    Status= ev.status,
                     Price = ev.Price,
                     Phone = ev.Phone,
                     Type = ev.Type,
                     Description = ev.Description,
                     ImageUrl = ev.ImageUrl,
-                    areindependent = ev.Dates.areindependent,
-                    dates = ev.Dates.dates,
-                    time = ev.Dates.time,
+                    AreIndependent = ev.Dates.areindependent,
+                    Dates= ev.Dates.dates,
+                    Time= ev.Dates.time,
                     Tags = ev.Tags,
                     Facebook = ev.Facebook,
                     Twitter = ev.Twitter,

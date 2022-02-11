@@ -27,7 +27,7 @@ namespace Events.API.Controllers
             return Ok(events);
         }
 
-        [HttpGet("fullEvent")]
+        [HttpGet("fullEvents")]
         [EnableQuery]
         public async Task<IActionResult> GetFullEvent()
         {

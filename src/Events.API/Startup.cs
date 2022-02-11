@@ -48,9 +48,11 @@ namespace Events.API
             services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<IOptions<AppSettings>>().Value);
 
             services.AddSingleton<IEventsService, EventsService>();
+            services.AddSingleton<IFullEventsService, FullEventsService>();
             services.AddSingleton<IVenuesService, VenuesService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IEventsDAO, EventsDAO>();
+            services.AddSingleton<IFullEventsDAO, FullEventsDAO>();
             services.AddSingleton<IVenuesDao, VenuesDAO>();
             services.AddSingleton<IAuthenticationDAO, AuthenticationDAO>();
 
