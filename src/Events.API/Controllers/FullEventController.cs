@@ -3,6 +3,7 @@ using Events.Service;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Events.API.Controllers
@@ -40,7 +41,6 @@ namespace Events.API.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] FullEvent eventObj)
         {
@@ -48,5 +48,34 @@ namespace Events.API.Controllers
             return Ok(Event);
         }
 
+        [HttpDelete("{fullEventId}")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<IActionResult> Delete(string fullEventId)
+        {
+            try
+            {
+                await _fullEventsService.deleteFullEvent(fullEventId);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        //PUT: EventsController/eventId
+        [HttpPut("{eventId}")]
+        public async Task<ActionResult> EditAsync(string eventId, [FromBody] FullEvent eventObj)
+        {
+            try
+            {
+                await _fullEventsService.updateFullEvent(eventId, eventObj);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
