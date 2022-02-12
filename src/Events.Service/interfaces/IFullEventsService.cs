@@ -8,9 +8,9 @@ namespace Events.Service
     {
         public Task<List<FullEvent>> getFullEvents();
         public Task<FullEvent> getFullEventById(string fullEventId);
-        //public Task<Event> postEvent(Event eventObj);
-        //public Task<Event> updateEvent(string eventId,Event eventObj);
-        //public Task<Event> patchEvent(string eventId,Event eventObj);
-        //public Task deleteEvent(string eventId);
+        public Task<FullEvent> postFullEvent(FullEvent fullEventObj);
+        public Task<FullEvent> updateFullEvent(string fullEventId, FullEvent fullEvent);
+        public Task<FullEvent> patchFullEvent(string fullEventId, FullEvent fullEvent);
+        public Task deleteFullEvent(string fullEvent);
     }
 }

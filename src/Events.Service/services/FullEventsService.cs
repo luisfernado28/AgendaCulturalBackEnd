@@ -16,15 +16,36 @@ namespace Events.Service
             _fullEventsDao = fullEventsDAO;
         }
 
-        public Task<FullEvent> getFullEventById(string fullEventId)
+        public Task deleteFullEvent(string fullEvent)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<FullEvent> getFullEventById(string fullEventId)
+        {
+
+            return await _fullEventsDao.getFullEventsById(fullEventId);
         }
 
         public async Task<List<FullEvent>> getFullEvents()
         {
             var fullEvents = await _fullEventsDao.getFullEvents();
             return fullEvents;
+        }
+
+        public Task<FullEvent> patchFullEvent(string fullEventId, FullEvent fullEvent)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<FullEvent> postFullEvent(FullEvent fullEventObj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<FullEvent> updateFullEvent(string fullEventId, FullEvent fullEvent)
+        {
+            throw new System.NotImplementedException();
         }
 
         private List<FullEvent> buildFullEvents(List<FullEvent> listOfCurrentFullEvents, List<Event>  events, Venue venue)

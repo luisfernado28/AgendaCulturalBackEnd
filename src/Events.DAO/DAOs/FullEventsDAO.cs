@@ -32,9 +32,18 @@ namespace Events.DAO
             }
         }
 
-        public Task<FullEvent> getFullEventsById(string fullEventId)
+        public async Task<FullEvent> getFullEventsById(string fullEventId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingEvent = await _fullEvents.Find(eventFind => eventFind.Id == fullEventId).FirstOrDefaultAsync();
+                EventHandler(existingEvent != null);
+                return existingEvent;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task deleteEvent(string eventId)
