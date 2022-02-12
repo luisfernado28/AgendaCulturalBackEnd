@@ -11,9 +11,9 @@ namespace Events.DAO
     {
         public Task<List<FullEvent>> getFullEvents();
         public Task<FullEvent> getFullEventsById(string fullEventId);
-        //public Task<Event> postEvent(Event Event);
-        //public Task<Event> updateEvent(string eventId, Event Event);
-        //public Task<Event> patchEvent(string eventId, Event Event);
-        //public Task deleteEvent(string eventId);
+        public Task<FullEvent> postFullEvent(FullEvent fullEvent);
+        public Task<FullEvent> updateFullEvent(string eventId, FullEvent fullEvent);
+        public Task<FullEvent> patchFullEvent(string eventId, FullEvent fullEvent);
+        public Task deleteFullEvent(string fullEventId);
     }
 }

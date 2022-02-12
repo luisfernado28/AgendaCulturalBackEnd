@@ -1,4 +1,5 @@
-﻿using Events.Service;
+﻿using Events.Domain;
+using Events.Service;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,5 +39,14 @@ namespace Events.API.Controllers
                 throw new Exception(e.Message);
             }
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] FullEvent eventObj)
+        {
+            var Event = await _fullEventsService.postFullEvent(eventObj);
+            return Ok(Event);
+        }
+
     }
 }

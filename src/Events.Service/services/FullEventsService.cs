@@ -38,9 +38,11 @@ namespace Events.Service
             throw new System.NotImplementedException();
         }
 
-        public Task<FullEvent> postFullEvent(FullEvent fullEventObj)
+        public async Task<FullEvent> postFullEvent(FullEvent fullEventObj)
         {
-            throw new System.NotImplementedException();
+            Logger.Info($"EventsService - Trying to create full event with the name {fullEventObj.Title}.");
+            var Event = await _fullEventsDao.postFullEvent(fullEventObj);
+            return Event;
         }
 
         public Task<FullEvent> updateFullEvent(string fullEventId, FullEvent fullEvent)

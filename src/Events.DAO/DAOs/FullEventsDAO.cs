@@ -46,20 +46,44 @@ namespace Events.DAO
             }
         }
 
-        public async Task deleteEvent(string eventId)
+        //public async Task deleteEvent(string eventId)
+        //{
+        //    try
+        //    {
+        //        var existingEvent = await _fullEvents.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+        //        if (existingEvent == null)
+        //            throw new KeyNotFoundException();
+        //        DeleteResult deleteResult = await _fullEvents.DeleteOneAsync(evnt => evnt.Id == eventId);
+        //        EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
+
+        public async Task<FullEvent> postFullEvent(FullEvent fullEvent)
         {
             try
             {
-                var existingEvent = await _fullEvents.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
-                if (existingEvent == null)
-                    throw new KeyNotFoundException();
-                DeleteResult deleteResult = await _fullEvents.DeleteOneAsync(evnt => evnt.Id == eventId);
-                EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
+                fullEvent.Status= eventStatus.active;
+                await _fullEvents.InsertOneAsync(fullEvent);
+                return fullEvent;
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        public Task<FullEvent> updateFullEvent(string eventId, FullEvent fullEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<FullEvent> patchFullEvent(string eventId, FullEvent fullEvent)
+        {
+            throw new NotImplementedException();
         }
 
         //public async Task<List<Event>> getEvents()
@@ -151,20 +175,9 @@ namespace Events.DAO
             };
         }
 
-        //public async Task<Event> getEventsById(string eventId)
-        //{
-        //    try
-        //    {
-        //        var existingEvent = await _fullEvents.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
-        //        EventHandler(existingEvent != null);
-        //        return existingEvent;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new Exception(e.Message);
-        //    }
-        //}
-
-       
+        public Task deleteFullEvent(string fullEventId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
