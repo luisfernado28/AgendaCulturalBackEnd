@@ -63,7 +63,6 @@ namespace Events.API.Controllers
             }
         }
 
-        //PUT: EventsController/eventId
         [HttpPut("{eventId}")]
         public async Task<ActionResult> EditAsync(string eventId, [FromBody] FullEvent eventObj)
         {
