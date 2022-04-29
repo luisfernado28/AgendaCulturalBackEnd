@@ -104,7 +104,7 @@ namespace Events.DAO
                 Username = updatedUser.Username ?? storedUser.Username,
                 Firstname = updatedUser.Firstname ?? storedUser.Firstname,
                 Lastname = updatedUser.Lastname ?? storedUser.Lastname,
-                Password = storedUser.Password,
+                Password = string.IsNullOrEmpty(updatedUser.Password) ? storedUser.Password : updatedUser.Password,
                 Admin = updatedUser.Admin,
             };
         }
