@@ -1,37 +1,40 @@
 ﻿using Events.Domain;
 using Events.Service;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using System;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Events.API.Controllers
 {
     [ApiController]
     [Route("v1.0/auth")]
-    public class AuthenticationController : ControllerBase
+    public class UsersController : ODataController
     {
         public IAuthenticationService _authService;
-        public AuthenticationController(IAuthenticationService authService)
+        public UsersController(IAuthenticationService authService)
         {
             this._authService = authService;
         }
 
         [HttpGet]
         [EnableQuery]
-        public async Task<IActionResult> GetUsers()
+        public IActionResult Get(CancellationToken token)
         {
-            var events = await _authService.getUsers();
+            var events = _authService.getUsers();
             return Ok(events);
         }
 
-        [HttpGet("{eventId}")]
-        public async Task<ActionResult> GetEventById(string eventId)
+        [EnableQuery]
+        [HttpGet("{key}")]
+        public IActionResult Get(string key)
         {
             try
             {
-                var user = await _authService.getUserById(eventId);
+                var user = _authService.getUserById(key);
                 return Ok(user);
             }
             catch (Exception e)
@@ -41,9 +44,9 @@ namespace Events.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] User userObj)
+        public ActionResult Create([FromBody] User userObj)
         {
-            var User = await _authService.postUser(userObj);
+            var User =  _authService.postUser(userObj);
             return Ok(User);
         }
 
@@ -52,7 +55,7 @@ namespace Events.API.Controllers
         {
             try
             {
-                var patchedUser=await _authService.patchUser(userId, userObj);
+                var patchedUser = await _authService.patchUser(userId, userObj);
                 return Ok(patchedUser);
             }
             catch (Exception e)

@@ -42,14 +42,14 @@ namespace Events.Service
       await _authDao.deleteUser(userId);
     }
 
-    public async Task<User> getUserById(string userId)
+    public User getUserById(string userId)
     {
-      return await _authDao.getUserById(userId);
+      return _authDao.getUserById(userId);
     }
 
-    public async Task<List<User>> getUsers()
+    public List<User> getUsers()
     {
-      var users = await _authDao.getUsers();
+      var users = _authDao.getUsers();
       return users;
     }
 
@@ -67,7 +67,7 @@ namespace Events.Service
           userObj.Password = BC.HashPassword(userObj.Password);
         }
         var updated = await _authDao.patchUser(userId, userObj);
-        var account = await _authDao.getUserById(userId);
+        var account = _authDao.getUserById(userId);
         return account;
       }
       catch (Exception e)
@@ -76,12 +76,12 @@ namespace Events.Service
       }
     }
 
-    public async Task<User> postUser(User userObj)
+    public User postUser(User userObj)
     {
       Logger.Info($"Authservice - Trying to create user with the name of {userObj.Username}.");
       userObj.Password = BC.HashPassword(userObj.Password);
 
-      var User = await _authDao.postUser(userObj);
+      var User = _authDao.postUser(userObj);
       return User;
     }
 

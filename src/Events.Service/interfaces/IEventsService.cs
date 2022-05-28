@@ -6,12 +6,11 @@ namespace Events.Service
 {
     public interface IEventsService
     {
-        public Task<List<Event>> getEvents();
-        public Task<List<FullEvent>> getFullEvents();
-        public Task<Event> getEventById(string eventId);
-        public Task<Event> postEvent(Event eventObj);
-        public Task<Event> updateEvent(string eventId,Event eventObj);
-        public Task<Event> patchEvent(string eventId,Event eventObj);
-        public Task deleteEvent(string eventId);
+        public Task<List<Event>> getFullEvents();
+        public Event getFullEventById(string fullEventId);
+        public Event postFullEvent(Event fullEventObj);
+        public Event updateFullEvent(string fullEventId, Event fullEvent);
+        public Event patchFullEvent(string fullEventId, Event fullEvent);
+        public void deleteFullEvent(string fullEvent);
     }
 }

@@ -8,24 +8,118 @@ namespace Events.DAO
 {
     public class EventsDAO : IEventsDAO
     {
-        private readonly IMongoCollection<Event> _events;
+        private readonly IMongoCollection<Event> _fullEvents;
+
+        private static List<Event> _events = new List<Event>
+        {
+            new Event
+            {
+                Id= "1",
+
+                Title = "Coach",
+                Artist = "coach",
+                Description = "asdfadgege",
+                Type = "2",
+             
+                //LocationCoordinates= "",
+                //Dates= "",
+                //Tags= "",
+                //Time= "",
+
+            },
+            new Event
+            {
+                Id= "2",
+                Title = "lolla",
+                Artist = "lolla",
+                Description = "afg lolla",
+                Type = "2",
+                 Address = "",
+                Website= "",
+                //Status= eventStatus.active,
+                AreIndependent= true,
+                Facebook= "",
+                ImageUrl= "",
+                Instagram= "",
+                LocationType= "",
+                Phone= "",
+                Price= 89,
+                Twitter= "",
+                VenueDescription= "",
+                VenueFacebook= "",VenueId= "",
+                VenueInstagram= "",
+                VenueName= "",VenueTwitter= "",VenueWebsite= "",
+            },
+            new Event
+            {
+                Id= "3",
+                Title = "rockinrio",
+                Artist = "rockinrio",
+                Description = "rockinrio asdfasg",
+                Type = "2",
+                 Address = "",
+                Website= "",
+                //Status= eventStatus.active,
+                AreIndependent= true,
+                Facebook= "",
+                ImageUrl= "",
+                Instagram= "",
+                LocationType= "",
+                Phone= "",
+                Price= 89,
+                Twitter= "",
+                VenueDescription= "",
+                VenueFacebook= "",VenueId= "",
+                VenueInstagram= "",
+                VenueName= "",VenueTwitter= "",VenueWebsite= "",
+            },
+        };
 
         public EventsDAO(IAgendaCulturalDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _events = database.GetCollection<Event>(settings.EventsCollectionName);
+            _fullEvents = database.GetCollection<Event>(settings.FullEventsCollectionName);
         }
 
-        public async Task deleteEvent(string eventId)
+        public async Task<List<Event>> getFullEvents()
         {
             try
             {
-                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                var filter = FilterDefinition<Event>.Empty;
+                var list =  _fullEvents.FindAsync(filter).Result.ToList();
+                return list;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public Event getFullEventsById(string fullEventId)
+        {
+            try
+            {
+                var existingEvent = _fullEvents.Find(eventFind => eventFind.Id == fullEventId).FirstOrDefault();
+                EventHandler(existingEvent != null);
+                return existingEvent;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        public void deleteFullEvent(string fullEventId)
+        {
+            try
+            {
+                var existingEvent =  _fullEvents.Find(eventFind => eventFind.Id == fullEventId).FirstOrDefault();
                 if (existingEvent == null)
                     throw new KeyNotFoundException();
-                DeleteResult deleteResult = await _events.DeleteOneAsync(evnt => evnt.Id == eventId);
+                DeleteResult deleteResult = _fullEvents.DeleteOne(evnt => evnt.Id == fullEventId);
                 EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
             }
             catch (Exception e)
@@ -34,27 +128,13 @@ namespace Events.DAO
             }
         }
 
-        public async Task<List<Event>> getEvents()
+        public Event postFullEvent(Event fullEvent)
         {
             try
             {
-                var filter = FilterDefinition<Event>.Empty;
-                var list =  _events.FindAsync(filter).Result.ToList();
-                return list;
-            }
-                catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<Event> postEvent(Event eventObj)
-        {
-            try
-            {
-                eventObj.status = eventStatus.active;
-                await _events.InsertOneAsync(eventObj);
-                return eventObj;
+                //fullEvent.Status= eventStatus.active;
+                 _fullEvents.InsertOne(fullEvent);
+                return fullEvent;
             }
             catch (Exception e)
             {
@@ -62,15 +142,15 @@ namespace Events.DAO
             }
         }
 
-        public async Task<Event> updateEvent(string eventId, Event eventObj)
+        public Event updateFullEvent(string eventId, Event fullEvent)
         {
             try
             {
-                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                var existingEvent =  _fullEvents.Find(fullEvent => fullEvent.Id == eventId).FirstOrDefault();
                 EventHandler(existingEvent != null);
-                eventObj.Id = eventId;
-                await _events.ReplaceOneAsync(evnt => evnt.Id == eventId, eventObj);
-                return eventObj;
+                fullEvent.Id = eventId;
+                _fullEvents.ReplaceOne(evnt => evnt.Id == eventId, fullEvent);
+                return fullEvent;
             }
             catch (Exception e)
             {
@@ -78,14 +158,14 @@ namespace Events.DAO
             }
         }
 
-        public async Task<Event> patchEvent(string eventId, Event Event)
+        public Event patchFullEvent(string eventId, Event fullEvent)
         {
             try
             {
-                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
+                var existingEvent = _fullEvents.Find(eventFind => eventFind.Id == eventId).FirstOrDefault();
                 EventHandler(existingEvent != null);
-                var patchedEvent=patchEvent(Event, existingEvent);
-                await _events.ReplaceOneAsync(evnt => evnt.Id == eventId, patchedEvent);
+                var patchedEvent = patchFullEvent(fullEvent, existingEvent);
+                _fullEvents.ReplaceOne(evnt => evnt.Id == eventId, patchedEvent);
                 return patchedEvent;
             }
             catch (Exception e)
@@ -100,41 +180,38 @@ namespace Events.DAO
             if (!flag) { throw new KeyNotFoundException(); }
         }
 
-        public Event patchEvent(Event patchedEvent, Event actualEvent)
+        public Event patchFullEvent(Event patchedEvent, Event actualEvent)
         {
             return new Event
             {
                 Id = patchedEvent.Id,
                 Title = patchedEvent.Title ?? actualEvent.Title,
                 Artist = patchedEvent.Artist ?? actualEvent.Artist,
-                VenueId = patchedEvent.VenueId ?? actualEvent.VenueId,
-                status = patchedEvent.status,
+                //Status= patchedEvent.Status,
                 Price = patchedEvent.Price ,
                 Phone = patchedEvent.Phone ?? actualEvent.Phone,
                 Type = patchedEvent.Type ?? actualEvent.Type,
                 Description = patchedEvent.Description ?? actualEvent.Description,
                 ImageUrl = patchedEvent.ImageUrl ?? actualEvent.ImageUrl,
+                AreIndependent= patchedEvent.AreIndependent,
                 Dates = patchedEvent.Dates ?? actualEvent.Dates,
+                Time = patchedEvent.Time,
                 Tags = patchedEvent.Tags ?? actualEvent.Tags,
                 Website = patchedEvent.Website ?? actualEvent.Website,
                 Facebook = patchedEvent.Facebook ?? actualEvent.Facebook,
                 Twitter = patchedEvent.Twitter ?? actualEvent.Twitter,
                 Instagram = patchedEvent.Instagram ?? actualEvent.Instagram,
+                VenueId = patchedEvent.VenueId ?? actualEvent.VenueId,
+                VenueName = patchedEvent.VenueName ?? actualEvent.VenueName,
+                Address= patchedEvent.Address ?? actualEvent.Address,
+                VenueDescription = patchedEvent.VenueDescription ?? actualEvent.VenueDescription,
+                VenueFacebook = patchedEvent.VenueFacebook ?? actualEvent.VenueFacebook,
+                VenueInstagram= patchedEvent.VenueInstagram ?? actualEvent.VenueInstagram,
+                VenueTwitter = patchedEvent.VenueTwitter ?? actualEvent.VenueTwitter,
+                VenueWebsite= patchedEvent.VenueWebsite ?? actualEvent.VenueWebsite,
+                LocationType= patchedEvent.LocationType ?? actualEvent.LocationType,
+                LocationCoordinates = patchedEvent.LocationCoordinates ?? actualEvent.LocationCoordinates
             };
-        }
-
-        public async Task<Event> getEventsById(string eventId)
-        {
-            try
-            {
-                var existingEvent = await _events.Find(eventFind => eventFind.Id == eventId).FirstOrDefaultAsync();
-                EventHandler(existingEvent != null);
-                return existingEvent;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
         }
 
     }

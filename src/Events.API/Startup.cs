@@ -1,17 +1,26 @@
+//-----------------------------------------------------------------------------
+// <copyright file="Startup.cs" company=".NET Foundation">
+//      Copyright (c) .NET Foundation and Contributors. All rights reserved.
+//      See License.txt in the project root for license information.
+// </copyright>
+//------------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OData.Edm;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.OData.Routing.Conventions;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using System.Reflection;
+using Events.Service;
+using Events.DAO;
 using Events.Domain;
 using Microsoft.Extensions.Options;
-using Events.DAO;
-using Events.Service;
-using Microsoft.AspNet.OData.Extensions;
-using System.Linq;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Events.API
 {
@@ -27,43 +36,47 @@ namespace Events.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(opt =>
-            {
-                opt.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
+            #region Codes for backup and use to compare with preview design/implementation
+            //services.AddControllers(options => {
+            //{
+            //    options.Conventions.Add(new MetadataApplicationModelConventionAttribute());
+            //    options.Conventions.Add(new MetadataActionModelConvention());
+            //});
 
-
-            services.AddRouting();
-            services.AddOData();
-
-            // requires using Microsoft.Extensions.Options
-            services.Configure<AgendaCulturalDatabaseSettings>(Configuration.GetSection(nameof(AgendaCulturalDatabaseSettings)));
-            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
-            services.AddSingleton<IAgendaCulturalDatabaseSettings>(sp =>sp.GetRequiredService<IOptions<AgendaCulturalDatabaseSettings>>().Value);
-            services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<IOptions<AppSettings>>().Value);
-
-            services.AddSingleton<IEventsService, EventsService>();
-            services.AddSingleton<IFullEventsService, FullEventsService>();
-            services.AddSingleton<IVenuesService, VenuesService>();
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IEventsDAO, EventsDAO>();
-            services.AddSingleton<IFullEventsDAO, FullEventsDAO>();
-            services.AddSingleton<IVenuesDao, VenuesDAO>();
-            services.AddSingleton<IAuthenticationDAO, AuthenticationDAO>();
-
-            services.AddControllers().AddNewtonsoftJson();
+            /*services.AddConvention<MyConvention>();
             
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Events.API", Version = "v1" });
-            });
+            services.AddOData()
+                .AddODataRouting(options => options
+                    .AddModel(EdmModelBuilder.GetEdmModel())
+                    .AddModel("v1", EdmModelBuilder.GetEdmModelV1())
+                    .AddModel("v2{data}", EdmModelBuilder.GetEdmModelV2()));
 
-            AddFormatters(services);
+            services.AddODataFormatter();
+            services.AddODataQuery(options => options.Count().Filter().Expand().Select().OrderBy().SetMaxTop(5));
+            */
+            #endregion
+
+            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
+            services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<IOptions<AppSettings>>().Value);
+            services.Configure<AgendaCulturalDatabaseSettings>(Configuration.GetSection(nameof(AgendaCulturalDatabaseSettings)));
+            services.AddSingleton<IAgendaCulturalDatabaseSettings>(sp => sp.GetRequiredService<IOptions<AgendaCulturalDatabaseSettings>>().Value);
+
+            services.AddScoped<IEventsService, EventsService>();
+            services.AddScoped<IEventsDAO, EventsDAO>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthenticationDAO, AuthenticationDAO>();
+
+
+            IEdmModel model0 = EdmModelBuilder.GetEdmModel();
+        
+            services.AddControllers()
+             
+                .AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy().SetMaxTop(5)
+                    .AddRouteComponents(model0)
+                       .Conventions.Add(new MyConvention())
+                );
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,44 +85,90 @@ namespace Events.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events.API v1"));
             }
 
-            app.UseCors();
+            // Use odata route debug, /$odata
+            app.UseODataRouteDebug();
+
+            // If you want to use /$openapi, enable the middleware.
+            //app.UseODataOpenApi();
+
+            // Add OData /$query middleware
+            app.UseODataQueryRequest();
+
+            // Add the OData Batch middleware to support OData $Batch
+            app.UseODataBatching();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Agenda Cultural");
+            });
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            // Test middleware
+            app.Use(next => context =>
+            {
+                var endpoint = context.GetEndpoint();
+                if (endpoint == null)
+                {
+                    return next(context);
+                }
+
+                return next(context);
+            });
+
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.EnableDependencyInjection();
-                endpoints.Select().Filter().Expand().OrderBy().MapSwagger().Count().MaxTop(null);
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => 
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "api v1");
             });
         }
+    }
 
-        private void AddFormatters(IServiceCollection services)
+    public class RemoveMetadataControllerFeatureProvider : ControllerFeatureProvider
+    {
+        protected override bool IsController(TypeInfo typeInfo)
         {
-            services.AddMvcCore(options =>
+            if (typeInfo.FullName == "Microsoft.AspNetCore.OData.Routing.Controllers.MetadataController")
             {
-                foreach (var outputFormatter in options.OutputFormatters.OfType<OutputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
-                {
-                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
+                return false;
+            }
 
-                foreach (var inputFormatter in options.InputFormatters.OfType<InputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
-                {
-                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-            });
+            return base.IsController(typeInfo);
+        }
+    }
+
+    /// <summary>
+    /// My simple convention
+    /// </summary>
+    public class MyConvention : IODataControllerActionConvention
+    {
+        /// <summary>
+        /// Order value.
+        /// </summary>
+        public int Order => -100;
+
+        /// <summary>
+        /// Apply to action,.
+        /// </summary>
+        /// <param name="context">Http context.</param>
+        /// <returns>true/false</returns>
+        public bool AppliesToAction(ODataControllerActionContext context)
+        {
+            return true; // apply to all controller
+        }
+
+        /// <summary>
+        /// Apply to controller
+        /// </summary>
+        /// <param name="context">Http context.</param>
+        /// <returns>true/false</returns>
+        public bool AppliesToController(ODataControllerActionContext context)
+        {
+            return false; // continue for all others
         }
     }
 }

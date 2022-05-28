@@ -18,7 +18,7 @@ namespace Events.DAO
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
-        public async Task<List<User>> getUsers()
+        public List<User> getUsers()
         {
             try
             {
@@ -32,11 +32,11 @@ namespace Events.DAO
             }
         }
 
-        public async Task<User> getUserById(string userId)
+        public User getUserById(string userId)
         {
             try
             {
-                var existinguser = await _users.Find(userFind => userFind.Id == userId).FirstOrDefaultAsync();
+                var existinguser = _users.Find(userFind => userFind.Id == userId).FirstOrDefault();
                 EventHandler(existinguser != null);
                 return existinguser;
             }
@@ -46,11 +46,11 @@ namespace Events.DAO
             }
         }
 
-        public async Task<User> postUser(User user)
+        public User postUser(User user)
         {
             try
             {
-                await _users.InsertOneAsync(user);
+                _users.InsertOne(user);
                 return user;
             }
             catch (Exception e)

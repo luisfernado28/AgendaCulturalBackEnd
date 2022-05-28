@@ -9,11 +9,11 @@ namespace Events.DAO
 {
     public interface IEventsDAO
     {
-        public Task<List<Event>> getEvents();
-        public Task<Event> getEventsById(string eventId);
-        public Task<Event> postEvent(Event Event);
-        public Task<Event> updateEvent(string eventId, Event Event);
-        public Task<Event> patchEvent(string eventId, Event Event);
-        public Task deleteEvent(string eventId);
+        public Task<List<Event>> getFullEvents();
+        public Event getFullEventsById(string fullEventId);
+        public Event postFullEvent(Event fullEvent);
+        public Event updateFullEvent(string eventId, Event fullEvent);
+        public Event patchFullEvent(string eventId, Event fullEvent);
+        public void deleteFullEvent(string fullEventId);
     }
 }
