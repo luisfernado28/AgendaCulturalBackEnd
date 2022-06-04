@@ -21,7 +21,7 @@ namespace Events.API
             builder.EntitySet<User>("Users");
 
             // unbound
-            builder.Action("ResetData");
+            //builder.Action("ResetData");
 
             return builder.GetEdmModel();
         }
