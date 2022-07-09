@@ -21,6 +21,8 @@ using Events.Service;
 using Events.DAO;
 using Events.Domain;
 using Microsoft.Extensions.Options;
+using Quartz;
+using Events.API.Jobs;
 
 namespace Events.API
 {
@@ -36,6 +38,29 @@ namespace Events.API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      // Add the required Quartz.NET services
+      services.AddQuartz(q =>
+      {
+        // Use a Scoped container to create jobs. I'll touch on this later
+        q.UseMicrosoftDependencyInjectionJobFactory(); //scoped delted may fail
+
+        // Create a "key" for the job
+        var jobKey = new JobKey("HelloWorldJob");
+
+        // Register the job with the DI container
+        q.AddJob<DeactivateEventsJob>(opts => opts.WithIdentity(jobKey));
+
+        // Create a trigger for the job
+        q.AddTrigger(opts => opts
+            .ForJob(jobKey) // link to the HelloWorldJob
+            .WithIdentity("HelloWorldJob-trigger") // give the trigger a unique name
+            .WithCronSchedule("0 4 22 * * ?")); // run every day at 4am
+      });
+
+      // Add the Quartz.NET hosted service
+      services.AddQuartzHostedService(
+          q => q.WaitForJobsToComplete = true);
+
       services.AddCors(options =>
       {
         options.AddPolicy(
@@ -77,12 +102,12 @@ namespace Events.API
       services.AddScoped<IAuthenticationService, AuthenticationService>();
       services.AddScoped<IAuthenticationDAO, AuthenticationDAO>();
 
-    
+
       IEdmModel model0 = EdmModelBuilder.GetEdmModel();
 
       services.AddControllers()
 
-          .AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy().SetMaxTop(10)
+          .AddOData(opt => opt.Count().Filter().Expand().Select().OrderBy().SetMaxTop(15)
               .AddRouteComponents(model0)
                  .Conventions.Add(new MyConvention())
           );
