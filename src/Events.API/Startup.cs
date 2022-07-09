@@ -54,7 +54,7 @@ namespace Events.API
         q.AddTrigger(opts => opts
             .ForJob(jobKey) // link to the HelloWorldJob
             .WithIdentity("HelloWorldJob-trigger") // give the trigger a unique name
-            .WithCronSchedule("0 4 22 * * ?")); // run every day at 4am
+            .WithCronSchedule("0 0 4 * * ?")); // run every day at 4am
       });
 
       // Add the Quartz.NET hosted service
