@@ -1,4 +1,10 @@
-﻿using log4net;
+﻿/*
+ * Project: Agenda Cultural Back End Net Core
+ * Author: Luis Fernando Choque (luisfernandochoquea@gmail.com)
+ * -----
+ * Copyright 2021 - 2022 Universidad Privada Boliviana La Paz, Luis Fernando Choque Arana
+ */
+using log4net;
 using System;
 
 namespace Events.Domain

@@ -1,4 +1,10 @@
-﻿namespace Events.Domain
+﻿/*
+ * Project: Agenda Cultural Back End Net Core
+ * Author: Luis Fernando Choque (luisfernandochoquea@gmail.com)
+ * -----
+ * Copyright 2021 - 2022 Universidad Privada Boliviana La Paz, Luis Fernando Choque Arana
+ */
+namespace Events.Domain
 {
     public class AgendaCulturalDatabaseSettings : IAgendaCulturalDatabaseSettings
     {
