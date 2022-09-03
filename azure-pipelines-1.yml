@@ -37,3 +37,23 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: Deployment
+  displayName: Deployment on VM 
+  dependsOn: Build
+  jobs:
+  - deployment: VMDeploy
+    displayName: web
+    environment:
+      name:  PresVM
+      resourceType: VirtualMachine
+      tags: prod
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: | 
+              echo my first deployment
+              cd
+              cd agendaCultural
+              ./scriptUpdateBE.sh
