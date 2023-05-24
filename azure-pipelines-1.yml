@@ -14,7 +14,7 @@ variables:
   imageRepository: 'eventsapi'
   containerRegistry: 'agendaculturalcontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: latest #'$(Build.BuildId)' should use build tag
+  tag: latest
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
