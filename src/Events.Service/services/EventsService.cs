@@ -53,7 +53,8 @@ namespace Events.Service
 
         public Event updateFullEvent(string fullEventId, Event fullEvent)
         {
-            var updatedEvent = _fullEventsDao.updateFullEvent(fullEventId, fullEvent);
+            Logger.Info($"EventsService - Trying to update full event with the name {fullEvent.Title}.");
+          var updatedEvent = _fullEventsDao.updateFullEvent(fullEventId, fullEvent);
             return updatedEvent;
         }
 

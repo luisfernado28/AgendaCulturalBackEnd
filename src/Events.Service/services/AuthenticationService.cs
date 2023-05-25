@@ -39,7 +39,6 @@ namespace Events.Service
       {
         throw new UnauthorizedAccessException();
       }
-
       return fillUserCredentialsResponse(account);
     }
 
@@ -74,6 +73,7 @@ namespace Events.Service
         }
         var updated = await _authDao.patchUser(userId, userObj);
         var account = _authDao.getUserById(userId);
+        Logger.Info($"Authservice - User updated at {System.DateTime.Now} with the name {account.Firstname}  {account.Lastname} with username {account.Username}");
         return account;
       }
       catch (Exception e)

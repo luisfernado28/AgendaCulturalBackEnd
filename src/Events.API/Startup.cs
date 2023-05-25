@@ -45,7 +45,7 @@ namespace Events.API
         q.UseMicrosoftDependencyInjectionJobFactory(); //scoped delted may fail
 
         // Create a "key" for the job
-        var jobKey = new JobKey("HelloWorldJob");
+        var jobKey = new JobKey("DeactivateEventsJob");
 
         // Register the job with the DI container
         q.AddJob<DeactivateEventsJob>(opts => opts.WithIdentity(jobKey));
@@ -53,7 +53,7 @@ namespace Events.API
         // Create a trigger for the job
         q.AddTrigger(opts => opts
             .ForJob(jobKey) // link to the HelloWorldJob
-            .WithIdentity("HelloWorldJob-trigger") // give the trigger a unique name
+            .WithIdentity("DeactivateEventsJob-trigger") // give the trigger a unique name
             .WithCronSchedule("0 0 4 * * ?")); // run every day at 4am
       });
 

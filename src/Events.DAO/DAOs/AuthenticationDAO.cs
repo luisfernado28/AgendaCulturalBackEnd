@@ -57,6 +57,7 @@ namespace Events.DAO
             try
             {
                 _users.InsertOne(user);
+                Logger.Info($"Authentication DAO - User Created at {System.DateTime.Now} with the name {user.Firstname}  {user.Lastname} with username {user.Username}");
                 return user;
             }
             catch (Exception e)
@@ -90,6 +91,7 @@ namespace Events.DAO
                     throw new KeyNotFoundException();
                 DeleteResult deleteResult = await _users.DeleteOneAsync(evnt => evnt.Id == userId);
                 EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
+                Logger.Info($"Authentication DAO - User deleted at {System.DateTime.Now} with the name {existinguser.Firstname}  {existinguser.Lastname} with username {existinguser.Username}");
             }
             catch (Exception e)
             {

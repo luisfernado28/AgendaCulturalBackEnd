@@ -33,8 +33,6 @@ namespace Events.API.Controllers
 
     [HttpGet]
     [EnableQuery]
-    //public IActionResult Get(CancellationToken token)
-
     public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
     {
       var events = await _fullEventsService.getFullEvents();
@@ -57,14 +55,11 @@ namespace Events.API.Controllers
       }
     }
 
-    //without from body it works fine sends the parameterson the url
-    //[EnableQuery]
     [HttpPost]
     public ActionResult Create([FromBody] Event eventObj)
     {
 
       var createdEvent = _fullEventsService.postFullEvent(eventObj);
-      //return Created(createdEvent);
       return Ok(createdEvent);
     }
 

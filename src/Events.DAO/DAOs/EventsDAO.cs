@@ -62,6 +62,7 @@ namespace Events.DAO
                     throw new KeyNotFoundException();
                 DeleteResult deleteResult = _fullEvents.DeleteOne(evnt => evnt.Id == fullEventId);
                 EventHandler(deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0);
+                Logger.Info($"Event DAO - Event deleted with the name {existingEvent.Title}.");
             }
             catch (Exception e)
             {
@@ -73,7 +74,6 @@ namespace Events.DAO
         {
             try
             {
-                //fullEvent.Status= eventStatus.active;
                  _fullEvents.InsertOne(fullEvent);
                 return fullEvent;
             }
@@ -128,7 +128,6 @@ namespace Events.DAO
                 Id = patchedEvent.Id,
                 Title = patchedEvent.Title ?? actualEvent.Title,
                 Artist = patchedEvent.Artist ?? actualEvent.Artist,
-                //Status= patchedEvent.Status,
                 Price = patchedEvent.Price ,
                 Phone = patchedEvent.Phone ?? actualEvent.Phone,
                 Type = patchedEvent.Type ?? actualEvent.Type,
